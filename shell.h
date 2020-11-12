@@ -8,8 +8,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <string.h>
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
+void free_double(char **dptr);
 #endif
