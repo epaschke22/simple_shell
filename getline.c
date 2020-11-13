@@ -15,10 +15,7 @@ int main()
 		for (i = 0; path[i] != NULL; i++)
 		{
 			adress = catcmd(path[i], input[0]);
-			printf("%s", adress);
-			printf("...");
 			fd = access(adress, F_OK);
-			printf("fd: %d\n", fd);
 			if (fd == 0)
 			{
 				printf("The file exists!\n");
@@ -28,6 +25,7 @@ int main()
 		if (path[i] == NULL)
 			printf("Error Number : %d\n", fd);
 		free_double(input);
+		free(adress);
 	}
 	return(0);
 }

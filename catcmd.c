@@ -12,6 +12,10 @@ char *catcmd(char *path, char *cmd)
 	char *newpath, slash = '/';
 
 	len = _strlen(path);
+
+	for (i = 0; cmd[i]; i++)
+		if (cmd[i] == '\n')
+			cmd[i] = '\0';
 	newpath = malloc(sizeof(char) * (len + 2 + _strlen(cmd)));
 	if (newpath == NULL)
 		return (NULL);
