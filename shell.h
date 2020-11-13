@@ -15,4 +15,5 @@ char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 void free_double(char **dptr);
 char **str_to_double(char *input, char *delm);
+char *catcmd(char *path, char *cmd);
 #endif
