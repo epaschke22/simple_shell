@@ -1,20 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "shell.h"
 
 int main()
 {
-	char *buffer = NULL;
+	char *buffer = NULL, **input, **path, *adress;
 	size_t bufsize = 0, inputsize = 0;
+	int i, fd;
 
+	path = str_to_double(getenv("PATH"), ":");
 	while (1)
 	{
 		write(STDOUT_FILENO,"$ ",2);
 		inputsize = getline(&buffer,&bufsize,stdin);
-		write(STDOUT_FILENO,buffer,inputsize);
+		input = str_to_double(buffer, " ");
+		for (i = 0; path[i] != NULL; i++)
+		{
+			adress = catcmd(path[i], input[0]);
+			printf("%s", adress);
+			printf("...");
+			fd = access(adress, F_OK);
+			printf("fd: %d\n", fd);
+			if (fd == 0)
+			{
+				printf("The file exists!\n");
+				break;
+			}
+		}
+		if (path[i] == NULL)
+			printf("Error Number : %d\n", fd);
+		free_double(input);
 	}
 	return(0);
 }
