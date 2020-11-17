@@ -46,3 +46,22 @@ char *_strcat(char *dest, char *src)
 		dest[len + i] = src[i];
 	return (dest);
 }
+
+/**
+ * _strcmp - compares 2 strings for being the same
+ * @s1: first string to be compared
+ * @s2: second string to be compared
+ * Return: 1 if same, 0 if not
+ */
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0;
+
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
