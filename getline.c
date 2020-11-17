@@ -5,7 +5,7 @@ int main()
 	char *buffer = NULL, **input, **path, *adress;
 	size_t bufsize = 0, inputsize = 0;
 	int i, fd, inputCounter = 0;
-
+	/*test comment*/
 	path = str_to_double(getenv("PATH"), ":");
 	while (1)
 	{
