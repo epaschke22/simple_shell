@@ -1,5 +1,4 @@
-#include "shell.h"
-
+#include "shell.h" 
 
 /**
  * sigint - Prints out the signal
@@ -30,13 +29,27 @@ void runcomands(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			/* Executes the command if found */
-			if (execve(adress, input, NULL) == -1)
+			pid_t child_pid;
+			child_pid = fork();
+			if (child_pid == -1)
 			{
-				printf("Execve Error\n");
-				exit(0);
+				perror("Error");
+				return;
 			}
-			break;
+			if (child_pid == 0)
+			{
+				/* Executes the command if found */
+				if (execve(adress, input, NULL) == -1)
+				{
+					printf("Execve Error\n");
+					exit(0);
+				}
+			}
+			else
+			{
+				wait(NULL);
+			}
+			return;
 		}
 	}
 	if (path[i] == NULL)
