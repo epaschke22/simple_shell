@@ -8,7 +8,7 @@
  */
 void sigint(int sig)
 {
-	printf("%d\n", sig);
+	printf("\n");
 }
 /**
  * runcomands - runs the commands based on input tokens
@@ -29,12 +29,18 @@ void runcomands(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			printf("The file exists!\n");
+			/* Executes the command if found */
+			if (execve(adress, input, NULL) == -1)
+			{
+				printf("Execve Error\n");
+				exit(0);
+			}
 			break;
 		}
 	}
 	if (path[i] == NULL)
-		printf("Error Number : %d\n", fd);
+		printf("Command '%s' not found.\n", adress);
+		/*printf("Error Number : %d\n", fd);*/
 	free(adress);
 	free_double(path);
 }
@@ -58,8 +64,8 @@ int main(int ac, char *av[], char **env)
 	while (status)
 	{
 		tmpenv = env;
-		signal(SIGINT, sigint);
 		write(STDOUT_FILENO,"$ ",2);
+		signal(SIGINT, sigint);
 		getline(&buffer,&bufsize,stdin);
 		input = str_to_double(buffer, " ");
 		runcomands(input, env);
