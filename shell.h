@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <string.h>
+#include <signal.h>
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);

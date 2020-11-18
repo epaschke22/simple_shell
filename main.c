@@ -1,5 +1,15 @@
 #include "shell.h"
 
+
+/**
+ * sigint - Prints out the signal
+ * @sig: Signal type
+ * Return: void
+ */
+void sigint(int sig)
+{
+	printf("%d\n", sig);
+}
 /**
  * runcomands - runs the commands based on input tokens
  * @input: input double pointer
@@ -48,6 +58,7 @@ int main(int ac, char *av[], char **env)
 	while (status)
 	{
 		tmpenv = env;
+		signal(SIGINT, sigint);
 		write(STDOUT_FILENO,"$ ",2);
 		getline(&buffer,&bufsize,stdin);
 		input = str_to_double(buffer, " ");
