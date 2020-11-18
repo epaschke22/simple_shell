@@ -8,18 +8,13 @@
  */
 char *_getenv(char *section, char **env)
 {
-	char *envtoken, *envpart, *malsect;
-	int i, j, len, flag = 1;
-
-	malsect = malloc(_strlen(section) * sizeof(char));
-	if (malsect == NULL)
-		return(NULL);
-	malsect = _strcpy(malsect, section);
+	char *envtoken, *envpart, *result;
+	int i, j, flag = 1;
 
 	for (i = 0; env[i]; i++)
 	{
-		for (j = 0; env[i][j] != '='; j++)
-			if (env[i][j] != malsect[j])
+		for (j = 0; section[j]; j++)
+			if (env[i][j] != section[j])
 				flag = 1;
 		if (flag == 0)
 		{
@@ -29,12 +24,14 @@ char *_getenv(char *section, char **env)
 			_strcpy(envpart, env[i]);
 			envtoken = strtok(envpart, "=");
 			envtoken = strtok(NULL, "\n");
-			free(malsect);
-			return (envtoken);
+			result = malloc((_strlen(envtoken) + 1) * sizeof(char));
+			if (result == NULL)
+				return (NULL);
+			_strcpy(result, envtoken);
+			free(envpart);
+			return (result);
 		}
 		flag = 0;
-		len = 0;
 	}
-	free(malsect);
 	return (NULL);
 }
