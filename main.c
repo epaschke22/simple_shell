@@ -9,6 +9,7 @@
 void sigint(int sig)
 {
 	printf("\n");
+	write(STDOUT_FILENO,"$ ",2);
 }
 /**
  * runcomands - runs the commands based on input tokens
@@ -39,8 +40,7 @@ void runcomands(char **input, char **env)
 		}
 	}
 	if (path[i] == NULL)
-		printf("Command '%s' not found.\n", adress);
-		/*printf("Error Number : %d\n", fd);*/
+		printf("\nCommand '%s' not found.\n\n", adress);
 	free(adress);
 	free_double(path);
 }
@@ -64,8 +64,8 @@ int main(int ac, char *av[], char **env)
 	while (status)
 	{
 		tmpenv = env;
-		write(STDOUT_FILENO,"$ ",2);
 		signal(SIGINT, sigint);
+		write(STDOUT_FILENO,"$ ",2);
 		getline(&buffer,&bufsize,stdin);
 		input = str_to_double(buffer, " ");
 		runcomands(input, env);
