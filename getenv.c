@@ -6,25 +6,34 @@
  * @envir: the environment variable
  * Return: return the string of the section in the environment
  */
-char *_getenv(char *section, char **envir)
+char *_getenv(char *section, char **env)
 {
-	char *envtoken, *malsect;
-	int i;
+	char *envtoken, *envpart, *malsect;
+	int i, j, len, flag = 1;
 
 	malsect = malloc(_strlen(section) * sizeof(char));
 	if (malsect == NULL)
 		return(NULL);
 	malsect = _strcpy(malsect, section);
 
-	for (i = 0; envir[i]; i++)
+	for (i = 0; env[i]; i++)
 	{
-		envtoken = strtok(envir[i], "=");
-		if (_strcmp(envtoken, malsect))
+		for (j = 0; env[i][j] != '='; j++)
+			if (env[i][j] != malsect[j])
+				flag = 1;
+		if (flag == 0)
 		{
-			envtoken = strtok(NULL, "=");
+			envpart = malloc((_strlen(env[i]) + 1) * sizeof(char));
+			if (envpart == NULL)
+				return (NULL);
+			_strcpy(envpart, env[i]);
+			envtoken = strtok(envpart, "=");
+			envtoken = strtok(NULL, "\n");
 			free(malsect);
-			return(envtoken);
+			return (envtoken);
 		}
+		flag = 0;
+		len = 0;
 	}
 	free(malsect);
 	return (NULL);

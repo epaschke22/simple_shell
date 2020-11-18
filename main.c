@@ -8,16 +8,14 @@
  */
 void runcomands(char **input, char **env)
 {
-	char **path, *adress;
+	char **path, *adress, *getpath;
 	int i, fd;
 
-	path = str_to_double(_getenv("PATH", env), ":");
-	printf("%s\n", _getenv("PATH", env));
+	getpath = _getenv("PATH", env);
+	path = str_to_double(getpath, ":");
 	for (i = 0; path[i] != NULL; i++)
 	{
-		printf("%s\n", path[i]);
 		adress = catcmd(path[i], input[0]);
-		printf("%s\n", adress);
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
@@ -32,21 +30,6 @@ void runcomands(char **input, char **env)
 }
 
 /**
- * readinput - reads the user input
- * Return: double pointer of command tokens
- */
-char **readinput()
-{
-	char *buffer = NULL, **input;
-	size_t bufsize = 0, inputsize = 0;
-
-	inputsize = getline(&buffer,&bufsize,stdin);
-	input = str_to_double(buffer, " ");
-	return(input);
-}
-
-
-/**
  * main - shell project main function
  * @ac: number of arguments
  * @av: list of arguments
@@ -55,7 +38,8 @@ char **readinput()
  */
 int main(int ac, char *av[], char **env)
 {
-	char **input;
+	size_t bufsize = 0;
+	char *buffer = NULL, **input, **tmpenv;
 	int status = 1;
 	(void)ac;
 	(void)av;
@@ -63,10 +47,14 @@ int main(int ac, char *av[], char **env)
 	/*signal(SIGINT, SIG_IGN)*/
 	while (status)
 	{
+		tmpenv = env;
 		write(STDOUT_FILENO,"$ ",2);
-		input = readinput();
+		getline(&buffer,&bufsize,stdin);
+		input = str_to_double(buffer, " ");
 		runcomands(input, env);
 		free_double(input);
+		buffer = NULL;
+		bufsize = 0;
 	}
 	return(0);
 }
