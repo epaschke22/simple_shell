@@ -21,4 +21,5 @@ char **str_to_double(char *input, char *delm);
 char *catcmd(char *path, char *cmd);
 char *_getenv(char *section, char **envir);
 void sigint(int sig);
+void execute(char* adress, char**input, char **env);
 #endif

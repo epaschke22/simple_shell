@@ -1,4 +1,4 @@
-#include "shell.h" 
+#include "shell.h"
 
 /**
  * sigint - Prints out the signal
@@ -8,7 +8,7 @@
 void sigint(int sig)
 {
 	printf("\n");
-	write(STDOUT_FILENO,"$ ",2);
+	write(STDOUT_FILENO, "$ ", 2);
 }
 /**
  * runcomands - runs the commands based on input tokens
@@ -29,26 +29,7 @@ void runcomands(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			pid_t child_pid;
-			child_pid = fork();
-			if (child_pid == -1)
-			{
-				perror("Error");
-				return;
-			}
-			if (child_pid == 0)
-			{
-				/* Executes the command if found */
-				if (execve(adress, input, NULL) == -1)
-				{
-					printf("Execve Error\n");
-					exit(0);
-				}
-			}
-			else
-			{
-				wait(NULL);
-			}
+			execute(adress, input, NULL);
 			return;
 		}
 	}
@@ -78,13 +59,13 @@ int main(int ac, char *av[], char **env)
 	{
 		tmpenv = env;
 		signal(SIGINT, sigint);
-		write(STDOUT_FILENO,"$ ",2);
-		getline(&buffer,&bufsize,stdin);
+		write(STDOUT_FILENO, "$ ", 2);
+		getline(&buffer, &bufsize, stdin);
 		input = str_to_double(buffer, " ");
 		runcomands(input, env);
 		free_double(input);
 		buffer = NULL;
 		bufsize = 0;
 	}
-	return(0);
+	return (0);
 }
