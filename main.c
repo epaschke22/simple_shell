@@ -62,7 +62,7 @@ int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
 	char *buffer = NULL, **input;
-	int status = 1, line, cmd;
+	int status = 1, line, cmd, i;
 	(void)ac;
 	(void)av;
 
@@ -77,6 +77,9 @@ int main(int ac, char *av[], char **env)
 			status = 0;
 			continue;
 		}
+		for(i = 0; buffer[i]; i++)
+			if (buffer[i] == '\n')
+				buffer[i] = '\0';
 		input = str_to_double(buffer, " ");
 		cmd = runbuiltins(input);
 		if (cmd == -1)
