@@ -11,9 +11,15 @@ void sigint(int sig)
 	write(STDOUT_FILENO, "$ ", 2);
 }
 
-int runbuiltins(char **input);
+
+/**
+ * runbuiltins - runs built in functions
+ * @input: user input
+ * Return: always 0
+ */
+int runbuiltins(char **input)
 {
-	return (0);
+	return (-1);
 }
 
 /**
@@ -56,7 +62,7 @@ int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
 	char *buffer = NULL, **input;
-	int status = 1, cmd;
+	int status = 1, line, cmd;
 	(void)ac;
 	(void)av;
 
@@ -65,7 +71,12 @@ int main(int ac, char *av[], char **env)
 		signal(SIGINT, sigint);
 		if (isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO,"$ ",2);
-		getline(&buffer,&bufsize,stdin);
+		line = getline(&buffer,&bufsize,stdin);
+		if (line == -1)
+		{
+			status = 0;
+			continue;
+		}
 		input = str_to_double(buffer, " ");
 		cmd = runbuiltins(input);
 		if (cmd == -1)
@@ -74,5 +85,8 @@ int main(int ac, char *av[], char **env)
 		buffer = NULL;
 		bufsize = 0;
 	}
+	free(buffer);
+	buffer = NULL;
+	bufsize = 0;
 	return (0);
 }
