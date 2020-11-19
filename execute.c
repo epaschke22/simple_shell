@@ -21,6 +21,7 @@ void execute(char *adress, char **input, char **env)
 	if (child_pid == 0)
 	{
 		/* Executes the command if found */
+		printf("adress: %s, input: %s, env: %s\n", adress, input, env);
 		if (execve(adress, input, env) == -1)
 		{
 			printf("Execve Error\n");
