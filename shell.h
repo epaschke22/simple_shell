@@ -10,7 +10,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <signal.h>
-#include<sys/wait.h> 
+#include <sys/wait.h>
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);

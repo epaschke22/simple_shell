@@ -10,13 +10,19 @@ void sigint(int sig)
 	printf("\n");
 	write(STDOUT_FILENO, "$ ", 2);
 }
+
+int runbuiltins(char **input);
+{
+	return (0);
+}
+
 /**
  * runcomands - runs the commands based on input tokens
  * @input: input double pointer
  * @env: environment
  * Return: void
  */
-void runcomands(char **input, char **env)
+void runprograms(char **input, char **env)
 {
 	char **path, *adress, *getpath;
 	int i, fd;
@@ -49,20 +55,21 @@ void runcomands(char **input, char **env)
 int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
-	char *buffer = NULL, **input, **tmpenv;
-	int status = 1;
+	char *buffer = NULL, **input;
+	int status = 1, cmd;
 	(void)ac;
 	(void)av;
 
-	/*signal(SIGINT, SIG_IGN)*/
 	while (status)
 	{
-		tmpenv = env;
 		signal(SIGINT, sigint);
-		write(STDOUT_FILENO, "$ ", 2);
-		getline(&buffer, &bufsize, stdin);
+		if (isatty(STDIN_FILENO) != 0)
+			write(STDOUT_FILENO,"$ ",2);
+		getline(&buffer,&bufsize,stdin);
 		input = str_to_double(buffer, " ");
-		runcomands(input, env);
+		cmd = runbuiltins(input);
+		if (cmd == -1)
+			runprograms(input, env);
 		free_double(input);
 		buffer = NULL;
 		bufsize = 0;
