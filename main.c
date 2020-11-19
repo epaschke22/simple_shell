@@ -1,8 +1,19 @@
 #include "shell.h"
 
+/**
+ * sigint - Prints out the signal
+ * @sig: Signal type
+ * Return: void
+ */
+void sigint(int sig)
+{
+	printf("\n");
+	write(STDOUT_FILENO, "$ ", 2);
+}
+
 int runbuiltins(char **input);
 {
-	 
+	return (0);
 }
 
 /**
@@ -24,12 +35,12 @@ void runprograms(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			printf("The file exists!\n");
-			break;
+			execute(adress, input, NULL);
+			return;
 		}
 	}
 	if (path[i] == NULL)
-		printf("Error Number : %d\n", fd);
+		printf("\nCommand '%s' not found.\n\n", adress);
 	free(adress);
 	free_double(path);
 }
@@ -49,9 +60,9 @@ int main(int ac, char *av[], char **env)
 	(void)ac;
 	(void)av;
 
-	/*signal(SIGINT, SIG_IGN)*/
 	while (status)
 	{
+		signal(SIGINT, sigint);
 		if (isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO,"$ ",2);
 		getline(&buffer,&bufsize,stdin);
@@ -63,5 +74,5 @@ int main(int ac, char *av[], char **env)
 		buffer = NULL;
 		bufsize = 0;
 	}
-	return(0);
+	return (0);
 }

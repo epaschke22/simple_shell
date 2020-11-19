@@ -9,6 +9,8 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <string.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
@@ -18,4 +20,6 @@ void free_double(char **dptr);
 char **str_to_double(char *input, char *delm);
 char *catcmd(char *path, char *cmd);
 char *_getenv(char *section, char **envir);
+void sigint(int sig);
+void execute(char* adress, char**input, char **env);
 #endif

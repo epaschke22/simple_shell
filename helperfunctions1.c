@@ -31,7 +31,7 @@ char *catcmd(char *path, char *cmd)
 /**
  * _getenv - gets a string of the designated path location
  * @section: the string to look for in the environment
- * @envir: the environment variable
+ * @env: the environment variable
  * Return: return the string of the section in the environment
  */
 char *_getenv(char *section, char **env)
@@ -80,7 +80,7 @@ char **str_to_double(char *input, char *delm)
 			cmdlen++;
 	output = malloc(sizeof(char *) * (cmdlen + 2));
 	if (output == NULL)
-		return(NULL);
+		return (NULL);
 	item = strtok(input, delm);
 	for (i = 0; item != NULL; i++)
 	{
@@ -94,7 +94,7 @@ char **str_to_double(char *input, char *delm)
 		item = strtok(NULL, delm);
 	}
 	output[i] = NULL;
-	return(output);
+	return (output);
 }
 
 /**
@@ -108,7 +108,7 @@ void free_double(char **dptr)
 
 	if (dptr == NULL)
 		return;
-	while(dptr[i])
+	while (dptr[i])
 		free(dptr[i]), i++;
 	if (dptr[i] == NULL)
 		free(dptr[i]);
