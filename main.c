@@ -42,12 +42,16 @@ void runprograms(char **input, char **env)
 		if (fd == 0)
 		{
 			execute(adress, input, NULL);
+			free(adress);
+			free(getpath);
+			free_double(path);
 			return;
 		}
+		free(adress);
 	}
 	if (path[i] == NULL)
 		printf("\nCommand '%s' not found.\n\n", adress);
-	free(adress);
+	free(getpath);
 	free_double(path);
 }
 
@@ -66,9 +70,11 @@ int main(int ac, char *av[], char **env)
 	(void)ac;
 	(void)av;
 
+	signal(SIGINT, sigint);
 	while (status)
 	{
-		signal(SIGINT, sigint);
+		buffer = NULL;
+		bufsize = 0;
 		if (isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO,"$ ",2);
 		line = getline(&buffer,&bufsize,stdin);
@@ -85,11 +91,7 @@ int main(int ac, char *av[], char **env)
 		if (cmd == -1)
 			runprograms(input, env);
 		free_double(input);
-		buffer = NULL;
-		bufsize = 0;
+		free(buffer);
 	}
-	free(buffer);
-	buffer = NULL;
-	bufsize = 0;
 	return (0);
 }
