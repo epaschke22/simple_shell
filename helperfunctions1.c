@@ -46,16 +46,10 @@ char *_getenv(char *section, char **env)
 				flag = 1;
 		if (flag == 0)
 		{
-			envpart = malloc((_strlen(env[i]) + 1) * sizeof(char));
-			if (envpart == NULL)
-				return (NULL);
-			_strcpy(envpart, env[i]);
+			envpart = _strdup(envpart, env[i]);
 			envtoken = strtok(envpart, "=");
 			envtoken = strtok(NULL, "\n");
-			result = malloc((_strlen(envtoken) + 1) * sizeof(char));
-			if (result == NULL)
-				return (NULL);
-			_strcpy(result, envtoken);
+			result = _strdup(result, envtoken);
 			free(envpart);
 			return (result);
 		}

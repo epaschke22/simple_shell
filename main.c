@@ -19,6 +19,13 @@ void sigint(int sig)
  */
 int runbuiltins(char **input)
 {
+	switch (input[i])
+	{
+	case "exit":
+		/*run exit built in*/
+		break;
+	default:
+		break;
 	return (-1);
 }
 
@@ -65,8 +72,8 @@ void runprograms(char **input, char **env)
 int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
-	char *buffer = NULL, **input;
-	int status = 1, line, cmd, i;
+	char *buffer = NULL, *buf, **input;
+	int status = 1, cmd, line, i;
 	(void)ac;
 	(void)av;
 
@@ -81,12 +88,15 @@ int main(int ac, char *av[], char **env)
 		if (line == -1)
 		{
 			status = 0;
+			free(buffer);
 			continue;
 		}
-		for(i = 0; buffer[i]; i++)
-			if (buffer[i] == '\n')
-				buffer[i] = '\0';
-		input = str_to_double(buffer, " ");
+		buf = _strdup(buf, buffer);
+		for(i = 0; buf[i]; i++)
+			if (buf[i] == '\n')
+				buf[i] = '\0';
+		input = str_to_double(buf, " ");
+		free(buf);
 		cmd = runbuiltins(input);
 		if (cmd == -1)
 			runprograms(input, env);
