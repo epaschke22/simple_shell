@@ -19,6 +19,24 @@ void sigint(int sig)
  */
 int runbuiltins(char **input)
 {
+	int status;
+	if (input[0] == NULL)
+		return (-1);
+
+	blist arr[] = {                
+		{"exit", shell_exit},
+		{NULL, NULL}
+	};
+	int c = 0;
+	while (arr[c].command != NULL)
+	{
+		if (_strcmp(arr[c].command, input[0]) == 1)
+		{
+			status = (arr[c].fptr)();
+			return (status);
+		}
+		c++;
+	}
 	return (-1);
 }
 

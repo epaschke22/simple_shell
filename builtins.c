@@ -5,5 +5,5 @@
  */
 int shell_exit(void)
 {
-	return(-1);
+	return (0);
 }

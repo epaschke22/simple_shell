@@ -22,4 +22,10 @@ char *catcmd(char *path, char *cmd);
 char *_getenv(char *section, char **envir);
 void sigint(int sig);
 void execute(char* adress, char**input, char **env);
+typedef struct blist{
+	char *command;        
+	int (*fptr)(void);
+}blist;
+int shell_exit(void);
+int squared(void);
 #endif
