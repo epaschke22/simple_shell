@@ -39,7 +39,7 @@ gcc *.c -o willy_shell
 ```
 At this point, you will enter willy_shell and can do basic commands on a whole different shell!
 ## Usage
-Once all files are compiled together, inputing commands through the prompt with the '$' symbol will execute just like a regular simple shell.   
+Once all files are compiled together, inputing commands through the prompt with the '$' symbol will execute just like a regular simple shell.
 
 Current working built in commands inlcude:
 | Built-in | Description |
