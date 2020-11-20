@@ -1,0 +1,47 @@
+# Simple_Shell
+
+## Description
+
+The main perpose of this project is to recreate a simple shell for learning perposes. It is meant to recreate a prompt and execute commands from a few built in functions and any program stored in locations connected through the environment variable.
+
+Below are the list of files used within the project.
+
+| File | Description |
+| ------ | ------ |
+|shell.h| Header file to connect all files and standard libraries.|
+|main.c| The main file housing the main function and other connected functions.|
+|helperfunctions.c| Several functions that convert strings to double pointers, combine elements and return envrionment strings.
+|strfunctions.c| small string manipulating function recreations like _strlen and _strcpy.
+## Usage
+Once all files are compiled together, inputing commands through the prompt with the '$' symbol will execute just like a regular simple shell.
+
+Current working built in commands inlcude:
+| Built-in | Description |
+| ------ | ------ |
+|"exit"| to exit the program|
+|"env"| to print out the environment|
+
+## Examples output
+```c
+$ ls
+README.md  a.out  execute.c  helperfunctions1.c  main.c  shell.h  strfunctions.c
+$ echo "text"
+"text"
+$ pwd
+/home/simple_shell
+$ ls -la
+total 48
+drwxr-xr-x  3 root root  4096 Nov 20 04:25 .
+drwxr-xr-x 12 root root  4096 Nov 16 15:11 ..
+drwxr-xr-x  8 root root  4096 Nov 19 20:41 .git
+-rw-r--r--  1 root root     0 Nov 11 15:18 README.md
+-rwxr-xr-x  1 root root 13978 Nov 20 04:25 a.out
+-rw-r--r--  1 root root   619 Nov 19 18:03 execute.c
+-rw-r--r--  1 root root  2321 Nov 20 03:54 helperfunctions1.c
+-rw-r--r--  1 root root  1917 Nov 20 03:37 main.c
+-rw-r--r--  1 root root   667 Nov 19 20:29 shell.h
+-rw-r--r--  1 root root  1462 Nov 19 20:28 strfunctions.c
+$
+```
+##### Created by:
+Erickson Paschke and Jonny Wang
