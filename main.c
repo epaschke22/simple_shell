@@ -57,8 +57,8 @@ void runprograms(char **input, char **env)
 		free(adress);
 	}
 	if (path[i] == NULL)
-		printf("\nCommand '%s' not found.\n\n", adress);
-	free(getpath);
+		write(STDOUT_FILENO,"\nCommand not found.\n\n", 21);
+	free(adress);
 	free_double(path);
 }
 
