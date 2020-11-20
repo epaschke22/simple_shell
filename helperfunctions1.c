@@ -36,7 +36,7 @@ char *catcmd(char *path, char *cmd)
  */
 char *_getenv(char *section, char **env)
 {
-	char *envtoken, *envpart, *result;
+	char *envtoken, *envpart = NULL, *result = NULL;
 	int i, j, flag = 1;
 
 	for (i = 0; env[i]; i++)
@@ -107,4 +107,35 @@ void free_double(char **dptr)
 	if (dptr[i] == NULL)
 		free(dptr[i]);
 	free(dptr);
+}
+
+/**
+ * execute - finds and executes valid commands
+ * @adress - Location of a command file
+ * @input - what the user inputs in shell
+ * @env - env variables if needed
+ * return: void
+ */
+void execute(char *adress, char **input, char **env)
+{
+	pid_t child_pid;
+
+	child_pid = fork();
+
+	if (child_pid == -1)
+	{
+		perror("Error");
+		return;
+	}
+	if (child_pid == 0)
+	{
+		if (execve(adress, input, env) == -1)
+		{
+			perror("Execve Error");
+			exit(0);
+		}
+	}
+	else
+		wait(NULL);
+	return;
 }
