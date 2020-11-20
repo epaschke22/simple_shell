@@ -7,7 +7,7 @@
  */
 void sigint(int sig)
 {
-	write(STDOUT_FILENO, "\n", 2);
+	write(STDOUT_FILENO, "\n", 1);
 	write(STDOUT_FILENO, "$ ", 2);
 }
 
