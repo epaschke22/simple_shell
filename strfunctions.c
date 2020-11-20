@@ -22,7 +22,7 @@ int _strlen(char *s)
  */
 char *_strcpy(char *dest, char *src)
 {
-	int i = 0;
+	int i;
 
 	for (i = 0; src[i]; i++)
 		dest[i] = src[i];
@@ -38,7 +38,7 @@ char *_strcpy(char *dest, char *src)
  */
 char *_strcat(char *dest, char *src)
 {
-	int len = 0, i = 0;
+	int len, i;
 
 	len = _strlen(dest);
 
@@ -64,4 +64,19 @@ int _strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (1);
+}
+
+/**
+ * _strdup - duplicates a string into an empty string
+ * @dest: destination of the duplicated string
+ * @src: the source of the string to be duplicated
+ * Return: destination string
+ */
+char *_strdup(char *dest, char *src)
+{
+	dest = malloc((_strlen(src) + 1) * sizeof(char));
+	if (dest == NULL)
+		return (NULL);
+	_strcpy(dest, src);
+	return (dest);
 }

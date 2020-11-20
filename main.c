@@ -7,8 +7,8 @@
  */
 void sigint(int sig)
 {
-	printf("\n");
-	write(STDOUT_FILENO, "$ ", 2);
+	(void)sig;
+	write(STDOUT_FILENO, "\n$ ", 3);
 }
 
 
@@ -51,6 +51,13 @@ void runprograms(char **input, char **env)
 	char **path, *adress, *getpath;
 	int i, fd;
 
+	fd = access(input[0], F_OK);
+	if (fd == 0)
+	{
+		execute(input[0], input, env);
+		return;
+	}
+	fd = 0;
 	getpath = _getenv("PATH", env);
 	path = str_to_double(getpath, ":");
 	for (i = 0; path[i] != NULL; i++)
@@ -59,13 +66,17 @@ void runprograms(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			execute(adress, input, NULL);
+			execute(adress, input, env);
+			free(adress);
+			free(getpath);
+			free_double(path);
 			return;
 		}
+		free(adress);
 	}
 	if (path[i] == NULL)
-		write(STDOUT_FILENO,"\nCommand not found.\n\n", 21);
-	free(adress);
+		perror("Error: ");
+	free(getpath);
 	free_double(path);
 }
 
@@ -79,35 +90,41 @@ void runprograms(char **input, char **env)
 int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
-	char *buffer = NULL, **input;
-	int status = 1, line, cmd, i;
+	char *buffer = NULL, *buf, **input;
+	int status = 1, cmd, line, i;
 	(void)ac;
 	(void)av;
 
+	signal(SIGINT, sigint);
 	while (status)
 	{
-		signal(SIGINT, sigint);
+		buffer = NULL;
+		bufsize = 0;
 		if (isatty(STDIN_FILENO) != 0)
-			write(STDOUT_FILENO,"$ ",2);
-		line = getline(&buffer,&bufsize,stdin);
+			write(STDOUT_FILENO, "$ ", 2);
+		line = getline(&buffer, &bufsize, stdin);
 		if (line == -1)
 		{
 			status = 0;
+			free(buffer);
 			continue;
 		}
-		for(i = 0; buffer[i]; i++)
-			if (buffer[i] == '\n')
-				buffer[i] = '\0';
-		input = str_to_double(buffer, " ");
+		if (buffer[0] == '\n' || buffer[0] == ' ')
+		{
+			free(buffer);
+			continue;
+		}
+		buf = _strdup(buf, buffer);
+		for (i = 0; buf[i]; i++)
+			if (buf[i] == '\n')
+				buf[i] = '\0';
+		input = str_to_double(buf, " ");
+		free(buf);
 		cmd = runbuiltins(input);
 		if (cmd == -1)
 			runprograms(input, env);
 		free_double(input);
-		buffer = NULL;
-		bufsize = 0;
+		free(buffer);
 	}
-	free(buffer);
-	buffer = NULL;
-	bufsize = 0;
 	return (0);
 }
