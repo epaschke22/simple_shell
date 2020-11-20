@@ -91,16 +91,21 @@ int main(int ac, char *av[], char **env)
 		buffer = NULL;
 		bufsize = 0;
 		if (isatty(STDIN_FILENO) != 0)
-			write(STDOUT_FILENO,"$ ",2);
-		line = getline(&buffer,&bufsize,stdin);
+			write(STDOUT_FILENO, "$ ", 2);
+		line = getline(&buffer, &bufsize, stdin);
 		if (line == -1)
 		{
 			status = 0;
 			free(buffer);
 			continue;
 		}
+		if (buffer[0] == '\n' || buffer[0] == ' ')
+		{
+			free(buffer);
+			continue;
+		}
 		buf = _strdup(buf, buffer);
-		for(i = 0; buf[i]; i++)
+		for (i = 0; buf[i]; i++)
 			if (buf[i] == '\n')
 				buf[i] = '\0';
 		input = str_to_double(buf, " ");
