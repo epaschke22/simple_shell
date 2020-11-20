@@ -20,7 +20,6 @@ void execute(char *adress, char **input, char **env)
 	}
 	if (child_pid == 0)
 	{
-		/* Executes the command if found*/
 		if (execve(adress, input, env) == -1)
 		{
 			write(STDOUT_FILENO, "Execve Error\n", 13);
@@ -28,8 +27,6 @@ void execute(char *adress, char **input, char **env)
 		}
 	}
 	else
-	{
 		wait(NULL);
-	}
 	return;
 }

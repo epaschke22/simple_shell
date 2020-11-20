@@ -7,8 +7,8 @@
  */
 void sigint(int sig)
 {
-	write(STDOUT_FILENO, "\n", 1);
-	write(STDOUT_FILENO, "$ ", 2);
+	(void)sig;
+	write(STDOUT_FILENO, "\n$ ", 3);
 }
 
 
@@ -19,6 +19,7 @@ void sigint(int sig)
  */
 int runbuiltins(char **input)
 {
+
 	/*switch (input[0])
 	{
 	case "exit":
@@ -40,6 +41,13 @@ void runprograms(char **input, char **env)
 	char **path, *adress, *getpath;
 	int i, fd;
 
+	fd = access(input[0], F_OK);
+	if (fd == 0)
+	{
+		execute(input[0], input, env);
+		return;
+	}
+	fd = 0;
 	getpath = _getenv("PATH", env);
 	path = str_to_double(getpath, ":");
 	for (i = 0; path[i] != NULL; i++)
@@ -48,7 +56,7 @@ void runprograms(char **input, char **env)
 		fd = access(adress, F_OK);
 		if (fd == 0)
 		{
-			execute(adress, input, NULL);
+			execute(adress, input, env);
 			free(adress);
 			free(getpath);
 			free_double(path);
@@ -57,7 +65,7 @@ void runprograms(char **input, char **env)
 		free(adress);
 	}
 	if (path[i] == NULL)
-		write(STDOUT_FILENO, "\nCommand not found.\n\n", 21);
+		perror("Error: ");
 	free(getpath);
 	free_double(path);
 }
