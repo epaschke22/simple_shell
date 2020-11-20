@@ -1,0 +1,35 @@
+.\" Manpage for Willy Shell
+.\" Contact Google.com for more information
+.TH man 1 "11/20/2020" "1.0" "Simple Shell man page
+.SH NAME
+willy_shell \- A command line interpreter shell.
+.SH SYNOPSIS
+.B ./willy_shell
+.SH DESCRIPTION
+The willy_shell is a simple UNIX command line interpreter that mimics basic commands and programs similar to a regular bash shell.
+.SH OVERVIEW
+A shell interpreter that will execute commands read from the command line. This shell can be used in interactive or non-interactive mode.
+.SH BUILT-INS
+Willy Shell has the following commands implemented into the shell:
+.br
+.br
+.B exit		Exits the Shell
+.br
+.br
+.B env		Prints out all environment variables
+.br
+.br
+.B clear	Will clear the screen and show the command line.
+.br
+.br
+
+.SH USAGE/COMPILATION
+Need to compile all files simply by typing "gcc *.c -o willy_shell". Press ENTER and type ./willy_shell to run the shell.
+.SH AUTHORS
+Jonny Wang and Erickson Paschke
+.SH REPORTING BUGS
+Report bugs at https://support.holbertonschool.com/hc/en-us/requests/new
+.SH COPYRIGHT
+Free to anyone with our hearts
+.SH SEE ALSO
+willy_shell(1), Google.com
