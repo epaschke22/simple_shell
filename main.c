@@ -7,7 +7,7 @@
  */
 void sigint(int sig)
 {
-	printf("\n");
+	write(STDOUT_FILENO, "\n", 2);
 	write(STDOUT_FILENO, "$ ", 2);
 }
 
@@ -19,13 +19,13 @@ void sigint(int sig)
  */
 int runbuiltins(char **input)
 {
-	switch (input[i])
+	/*switch (input[0])
 	{
 	case "exit":
-		/*run exit built in*/
+		run exit built in
 		break;
 	default:
-		break;
+	break;*/
 	return (-1);
 }
 
@@ -57,7 +57,7 @@ void runprograms(char **input, char **env)
 		free(adress);
 	}
 	if (path[i] == NULL)
-		printf("\nCommand '%s' not found.\n\n", adress);
+		write(STDOUT_FILENO, "\nCommand not found.\n\n", 21);
 	free(getpath);
 	free_double(path);
 }
