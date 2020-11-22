@@ -42,12 +42,12 @@ int runbuiltins(char **input)
 }
 
 /**
- * runcomands - runs the commands based on input tokens
+ * runprograms - runs the commands based on input tokens
  * @input: input double pointer
  * @env: environment
- * Return: void
+ * Return: 1 on success, -1 on fail.
  */
-void runprograms(char **input, char **env)
+int runprograms(char **input, char **env)
 {
 	char **path, *adress, *getpath;
 	int i, fd;
@@ -56,7 +56,7 @@ void runprograms(char **input, char **env)
 	if (fd == 0)
 	{
 		execute(input[0], input, env);
-		return;
+		return (1);
 	}
 	fd = 0;
 	getpath = _getenv("PATH", env);
@@ -71,14 +71,13 @@ void runprograms(char **input, char **env)
 			free(adress);
 			free(getpath);
 			free_double(path);
-			return;
+			return (1);
 		}
 		free(adress);
 	}
-	if (path[i] == NULL)
-		perror("Error: ");
 	free(getpath);
 	free_double(path);
+	return (-1);
 }
 
 /**
@@ -92,13 +91,13 @@ int main(int ac, char *av[], char **env)
 {
 	size_t bufsize = 0;
 	char *buffer = NULL, *buf, **input;
-	int status = 1, cmd, line, i;
+	int status = 1, cmd = 0, error = 0, line, i, count = 0;
 	(void)ac;
-	(void)av;
 
 	signal(SIGINT, sigint);
 	while (status)
 	{
+		count++;
 		buffer = NULL;
 		bufsize = 0;
 		if (isatty(STDIN_FILENO) != 0)
@@ -123,7 +122,9 @@ int main(int ac, char *av[], char **env)
 		free(buf);
 		cmd = runbuiltins(input);
 		if (cmd == -1)
-			runprograms(input, env);
+			error = runprograms(input, env);
+		if (error == -1)
+			printerror(av[0], input[0], count);
 		free_double(input);
 		free(buffer);
 	}
