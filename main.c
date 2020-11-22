@@ -20,6 +20,8 @@ void sigint(int sig)
 int runbuiltins(char **input)
 {
 	int status;
+	int c = 0;
+
 	if (input[0] == NULL)
 		return (-1);
 
@@ -27,7 +29,6 @@ int runbuiltins(char **input)
 		{"exit", shell_exit},
 		{NULL, NULL}
 	};
-	int c = 0;
 	while (arr[c].command != NULL)
 	{
 		if (_strcmp(arr[c].command, input[0]) == 1)

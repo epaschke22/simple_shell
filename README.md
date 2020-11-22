@@ -12,6 +12,32 @@ Below are the list of files used within the project.
 |main.c| The main file housing the main function and other connected functions.|
 |helperfunctions.c| Several functions that convert strings to double pointers, combine elements and return envrionment strings.
 |strfunctions.c| small string manipulating function recreations like _strlen and _strcpy.
+## Getting Started
+TLDR: Pull the latest version of the 'main' branch and compile all .c files.
+### Prerequisties
+```
+Ubuntu LTS v14.04
+GCC version 5.5.0 or higher
+Basic knowledge of UNIX shells
+```
+### Installing
+1. Clone the "main" branch from the repository into your desired directory.
+```
+git clone https://github.com/epaschke22/simple_shell.git
+```
+2. Go into the simple_shell directory.
+```
+cd simple_shell
+```
+3. Compile all .c files in the simple_shell directory.
+```
+gcc *.c -o willy_shell
+```
+4. Run the output file (willy_shell) locally.
+```
+./willy_shell
+```
+At this point, you will enter willy_shell and can do basic commands on a whole different shell!
 ## Usage
 Once all files are compiled together, inputing commands through the prompt with the '$' symbol will execute just like a regular simple shell.
 
@@ -43,5 +69,11 @@ drwxr-xr-x  8 root root  4096 Nov 19 20:41 .git
 -rw-r--r--  1 root root  1462 Nov 19 20:28 strfunctions.c
 $
 ```
+## Built With
+* [Emacs](https://www.gnu.org/software/emacs/) - A common text editor.
+* [Vim](https://www.vim.org/) - The better text editor.
+* [Vagrant](https://www.vagrantup.com/) - Development environment menagement.
+* [Virtual Box](https://www.virtualbox.org/) - VM manager.
+* [Cowsay](https://en.wikipedia.org/wiki/Cowsay) - A great program.
 ##### Created by:
 Erickson Paschke and Jonny Wang

@@ -22,11 +22,12 @@ char **str_to_double(char *input, char *delm);
 char *catcmd(char *path, char *cmd);
 char *_getenv(char *section, char **envir);
 void sigint(int sig);
-void execute(char* adress, char**input, char **env);
-typedef struct blist{
-	char *command;        
+void execute(char *adress, char **input, char **env);
+typedef struct blist
+{
+	char *command;
 	int (*fptr)(void);
-}blist;
+} blist;
 int shell_exit(void);
 int squared(void);
 #endif

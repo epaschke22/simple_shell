@@ -137,5 +137,4 @@ void execute(char *adress, char **input, char **env)
 	}
 	else
 		wait(NULL);
-	return;
 }
