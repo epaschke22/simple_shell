@@ -23,7 +23,7 @@ int runbuiltins(char **input)
 	if (input[0] == NULL)
 		return (-1);
 
-	blist arr[] = {                
+	blist arr[] = {
 		{"exit", shell_exit},
 		{NULL, NULL}
 	};
