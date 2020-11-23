@@ -23,6 +23,11 @@ char *catcmd(char *path, char *cmd);
 char *_getenv(char *section, char **envir);
 void sigint(int sig);
 void execute(char *adress, char **input, char **env);
+/**
+ * struct blist - Struct for pointer functions
+ * @command: The command
+ * @fptr: Function pointer to a function
+ */
 typedef struct blist
 {
 	char *command;

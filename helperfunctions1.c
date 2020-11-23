@@ -111,9 +111,9 @@ void free_double(char **dptr)
 
 /**
  * execute - finds and executes valid commands
- * @adress - Location of a command file
- * @input - what the user inputs in shell
- * @env - env variables if needed
+ * @adress: Location of a command file
+ * @input: what the user inputs in shell
+ * @env: env variables if needed
  * return: void
  */
 void execute(char *adress, char **input, char **env)
