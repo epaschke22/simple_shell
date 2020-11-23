@@ -17,7 +17,7 @@ void sigint(int sig)
  * @input: user input
  * Return: always 0
  */
-int runbuiltins(char **input)
+int runbuiltins(char **input, char **env)
 {
 	int status;
 	int c = 0;
@@ -33,7 +33,7 @@ int runbuiltins(char **input)
 	{
 		if (_strcmp(arr[c].command, input[0]) == 1)
 		{
-			status = (arr[c].fptr)();
+			status = (arr[c].fptr)(env);
 			return (status);
 		}
 		c++;
@@ -120,7 +120,7 @@ int main(int ac, char *av[], char **env)
 				buf[i] = '\0';
 		input = str_to_double(buf, " ");
 		free(buf);
-		cmd = runbuiltins(input);
+		cmd = runbuiltins(input, env);
 		if (cmd == -1)
 			error = runprograms(input, env);
 		if (error == -1)

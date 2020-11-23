@@ -28,7 +28,7 @@ typedef struct blist
 	char *command;
 	int (*fptr)(char **dptr);
 } t_blist;
-int shell_exit(void);
-int squared(void);
+int shell_exit(char **env);
+int shell_env(char **env);
 void printerror(char *av, char *cmd, int count);
 #endif

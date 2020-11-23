@@ -2,11 +2,12 @@
 
 /**
  * shell_exit - exits shell
+ * @env: input
  * Return: void
  */
 int shell_exit(char **env)
 {
-	(void);
+	(void)env;
 	return (0);
 }
 
