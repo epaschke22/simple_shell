@@ -82,15 +82,14 @@ int runprograms(char **input, char **env)
 
 
 /**
- * rebuild - rebuils the input buffer from getline to remove spaces,
- * and fixed the new line and # characters
+ * rebuild - rebuils the input buffer and fixes space issues
  * @buf: input string
  * Return: new string called output
  */
 char *rebuild(char *buf)
 {
 	char *output;
-	int i, pos = 0;
+	int i;
 
 	output = malloc((_strlen(buf) + 1) * sizeof(char));
 	if (output == NULL)
@@ -99,25 +98,11 @@ char *rebuild(char *buf)
 	for (i = 0; buf[i]; i++)
 	{
 		if (buf[i] == '\n' || buf[i] == '#')
-		{
-			output[pos] = '\0';
-			pos++;
-		}
-		else if (buf[i] == ' ')
-		{
-			if (buf[i - 1] != ' ' && i != 0)
-			{
-				output[pos] = ' ';
-				pos++;
-			}
-		}
+			output[i] = '\0';
 		else
-		{
-			output[pos] = buf[i];
-			pos++;
-		}
+			output[i] = buf[i];
 	}
-	output[pos] = '\0';
+	output[i] = '\0';
 	return (output);
 }
 
