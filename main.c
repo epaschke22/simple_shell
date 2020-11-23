@@ -109,7 +109,7 @@ int main(int ac, char *av[], char **env)
 			free(buffer);
 			continue;
 		}
-		if (buffer[0] == '\n' || buffer[0] == ' ')
+		if (buffer[0] == '\n')
 		{
 			free(buffer);
 			continue;
@@ -121,6 +121,8 @@ int main(int ac, char *av[], char **env)
 		input = str_to_double(buf, " ");
 		free(buf);
 		cmd = runbuiltins(input, env);
+		if (cmd == 0)
+			status = 0;
 		if (cmd == -1)
 			error = runprograms(input, env);
 		if (error == -1)
