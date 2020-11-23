@@ -97,7 +97,7 @@ char *rebuild(char *buf)
 
 	for (i = 0; buf[i]; i++)
 	{
-		if (buf[i] == '\n')
+		if (buf[i] == '\n' || buf[i] == '#')
 			output[i] = '\0';
 		else
 			output[i] = buf[i];
