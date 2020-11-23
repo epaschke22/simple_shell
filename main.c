@@ -80,6 +80,47 @@ int runprograms(char **input, char **env)
 	return (-1);
 }
 
+
+/**
+ * rebuild - rebuils the input buffer from getline to remove spaces,
+ * and fixed the new line and # characters
+ * @buf: input string
+ * Return: new string called output
+ */
+char *rebuild(char *buf)
+{
+	char *output;
+	int i, pos = 0;
+
+	output = malloc((_strlen(buf) + 1) * sizeof(char));
+	if (output == NULL)
+		return (NULL);
+
+	for (i = 0; buf[i]; i++)
+	{
+		if (buf[i] == '\n' || buf[i] == '#')
+		{
+			output[pos] = '\0';
+			pos++;
+		}
+		else if (buf[i] == ' ')
+		{
+			if (buf[i - 1] != ' ' && i != 0)
+			{
+				output[pos] = ' ';
+				pos++;
+			}
+		}
+		else
+		{
+			output[pos] = buf[i];
+			pos++;
+		}
+	}
+	output[pos] = '\0';
+	return (output);
+}
+
 /**
  * main - shell project main function
  * @ac: number of arguments
@@ -89,9 +130,9 @@ int runprograms(char **input, char **env)
  */
 int main(int ac, char *av[], char **env)
 {
-	size_t bufsize = 0;
+	size_t bufsize;
 	char *buffer = NULL, *buf, **input;
-	int status = 1, cmd = 0, error = 0, line, i, count = 0;
+	int status = 1, cmd = 0, error = 0, line, count = 0;
 	(void)ac;
 
 	signal(SIGINT, sigint);
@@ -114,10 +155,7 @@ int main(int ac, char *av[], char **env)
 			free(buffer);
 			continue;
 		}
-		buf = _strdup(buf, buffer);
-		for (i = 0; buf[i]; i++)
-			if (buf[i] == '\n')
-				buf[i] = '\0';
+		buf = rebuild(buffer);
 		input = str_to_double(buf, " ");
 		free(buf);
 		cmd = runbuiltins(input, env);
