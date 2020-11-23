@@ -35,6 +35,7 @@ int runbuiltins(char **input, char **env, char *buf)
 	{
 		free_double(input);
 		free(buf);
+		exit(EXIT_SUCCESS);
 	}
 	while (arr[c].command != NULL)
 	{
