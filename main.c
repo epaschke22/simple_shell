@@ -15,6 +15,7 @@ void sigint(int sig)
 /**
  * runbuiltins - runs built in functions
  * @input: user input
+ * @env: environtment for printing
  * Return: always 0
  */
 int runbuiltins(char **input, char **env)
