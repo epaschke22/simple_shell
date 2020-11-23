@@ -21,14 +21,14 @@ int runbuiltins(char **input)
 {
 	int status;
 	int c = 0;
+	t_blist arr[] = {
+		{"exit", shell_exit},
+		{"env", shell_env},
+		{NULL, NULL}
+	};
 
 	if (input[0] == NULL)
 		return (-1);
-
-	blist arr[] = {
-		{"exit", shell_exit},
-		{NULL, NULL}
-	};
 	while (arr[c].command != NULL)
 	{
 		if (_strcmp(arr[c].command, input[0]) == 1)

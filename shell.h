@@ -26,8 +26,8 @@ void execute(char *adress, char **input, char **env);
 typedef struct blist
 {
 	char *command;
-	int (*fptr)(void);
-} blist;
+	int (*fptr)(char **dptr);
+} t_blist;
 int shell_exit(void);
 int squared(void);
 void printerror(char *av, char *cmd, int count);

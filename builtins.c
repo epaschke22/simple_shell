@@ -4,8 +4,9 @@
  * shell_exit - exits shell
  * Return: void
  */
-int shell_exit(void)
+int shell_exit(char **env)
 {
+	(void);
 	return (0);
 }
 
@@ -14,7 +15,7 @@ int shell_exit(void)
  * @env: environment variable
  * Return: void
  */
-void shell_env(char **env)
+int shell_env(char **env)
 {
 	int i;
 
@@ -23,4 +24,5 @@ void shell_env(char **env)
 		write(STDOUT_FILENO, env[i], _strlen(env[i]));
 		write(STDOUT_FILENO, "\n", 1);
 	}
+	return (1);
 }
