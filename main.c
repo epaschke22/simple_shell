@@ -143,7 +143,7 @@ int main(int ac, char *av[], char **env)
 			free(buffer);
 			continue;
 		}
-		if (buffer[0] == '\n')
+		if (checkempty(buffer))
 		{
 			free(buffer);
 			continue;

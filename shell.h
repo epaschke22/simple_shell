@@ -36,4 +36,5 @@ typedef struct blist
 int shell_exit(char **env);
 int shell_env(char **env);
 void printerror(char *av, char *cmd, int count);
+int checkempty(char *input);
 #endif
