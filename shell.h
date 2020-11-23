@@ -30,4 +30,5 @@ typedef struct blist
 } blist;
 int shell_exit(void);
 int squared(void);
+void printerror(char *av, char *cmd, int count);
 #endif
