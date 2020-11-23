@@ -53,6 +53,8 @@ int runprograms(char **input, char **env)
 	char **path, *adress, *getpath;
 	int i, fd;
 
+	if (_strcmp(input[0], "exit"))
+		return (-1);
 	fd = access(input[0], F_OK);
 	if (fd == 0)
 	{
