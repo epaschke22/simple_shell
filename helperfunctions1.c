@@ -39,6 +39,8 @@ char *_getenv(char *section, char **env)
 	char *envtoken, *envpart = NULL, *result = NULL;
 	int i, j, flag = 1;
 
+	if (env[0] == NULL)
+		return (NULL);
 	for (i = 0; env[i]; i++)
 	{
 		for (j = 0; section[j]; j++)

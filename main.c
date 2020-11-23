@@ -60,6 +60,8 @@ int runprograms(char **input, char **env)
 	char **path, *adress, *getpath;
 	int i, fd;
 
+	if (env == NULL)
+		return (-1);
 	fd = access(input[0], F_OK);
 	if (fd == 0)
 	{
@@ -68,6 +70,8 @@ int runprograms(char **input, char **env)
 	}
 	fd = 0;
 	getpath = _getenv("PATH", env);
+	if (getpath == NULL)
+		return (-1);
 	path = str_to_double(getpath, ":");
 	for (i = 0; path[i] != NULL; i++)
 	{
