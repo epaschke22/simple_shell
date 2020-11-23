@@ -149,7 +149,7 @@ int main(int ac, char *av[], char **env)
 			status = 0;
 		if (cmd == -1)
 			error = runprograms(input, env);
-		if (error == -1)
+		if (error == -1 && cmd != 0)
 			printerror(av[0], input[0], count);
 		free_double(input);
 		free(buffer);
