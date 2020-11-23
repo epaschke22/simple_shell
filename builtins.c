@@ -8,7 +8,7 @@
 int shell_exit(char **env)
 {
 	(void)env;
-	return (0);
+	exit(EXIT_SUCCESS);
 }
 
 /**

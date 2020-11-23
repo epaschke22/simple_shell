@@ -16,9 +16,10 @@ void sigint(int sig)
  * runbuiltins - runs built in functions
  * @input: user input
  * @env: environtment for printing
- * Return: always 0
+ * @buf: buffer to free if exit
+ * Return: status of called builtins or -1 on fail
  */
-int runbuiltins(char **input, char **env)
+int runbuiltins(char **input, char **env, char *buf)
 {
 	int status;
 	int c = 0;
@@ -30,6 +31,11 @@ int runbuiltins(char **input, char **env)
 
 	if (input[0] == NULL)
 		return (-1);
+	if (_strcmp(input[0], "exit"))
+	{
+		free_double(input);
+		free(buf);
+	}
 	while (arr[c].command != NULL)
 	{
 		if (_strcmp(arr[c].command, input[0]) == 1)
@@ -53,8 +59,6 @@ int runprograms(char **input, char **env)
 	char **path, *adress, *getpath;
 	int i, fd;
 
-	if (_strcmp(input[0], "exit"))
-		return (-1);
 	fd = access(input[0], F_OK);
 	if (fd == 0)
 	{
@@ -146,12 +150,10 @@ int main(int ac, char *av[], char **env)
 		buf = rebuild(buffer);
 		input = str_to_double(buf, " ");
 		free(buf);
-		cmd = runbuiltins(input, env);
-		if (cmd == 0)
-			status = 0;
+		cmd = runbuiltins(input, env, buffer);
 		if (cmd == -1)
 			error = runprograms(input, env);
-		if (error == -1 && cmd != 0)
+		if (error == -1)
 			printerror(av[0], input[0], count);
 		free_double(input);
 		free(buffer);
