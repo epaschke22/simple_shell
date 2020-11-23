@@ -6,7 +6,8 @@
  */
 int shell_exit(void)
 {
-	return (0);
+	printf("asdf");
+	return (-1);
 }
 
 /**
