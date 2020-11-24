@@ -8,6 +8,7 @@
 
 void sigint(int sig)
 {
+	/* This could be moved to helper functions */
 	(void)sig;
 	write(STDOUT_FILENO, "\n$ ", 3);
 }
@@ -31,6 +32,9 @@ int runbuiltins(char **input, char **env, char *buf)
 		{"env", shell_env},
 		{NULL, NULL}
 	};
+	/*
+	 * Unlikely case but its good to check twice
+	 */
 	if (input[0] == NULL)
 		return (-1);
 	if (_strcmp(input[0], "exit"))
@@ -48,6 +52,7 @@ int runbuiltins(char **input, char **env, char *buf)
 		}
 		c++;
 	}
+	/* Did not find the builtin given from input */
 	return (-1);
 }
 
@@ -92,7 +97,7 @@ int runprograms(char **input, char **env)
 		}
 		free(adress);
 	}
-	/* Always freeing stuff afte use */
+	/* Always freeing stuff after use */
 	free(getpath);
 	free_double(path);
 	return (-1);
