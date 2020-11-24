@@ -5,6 +5,7 @@
  * @sig: Signal type
  * Return: void
  */
+
 void sigint(int sig)
 {
 	(void)sig;
@@ -19,16 +20,17 @@ void sigint(int sig)
  * @buf: buffer to free if exit
  * Return: status of called builtins or -1 on fail
  */
+
 int runbuiltins(char **input, char **env, char *buf)
 {
 	int status;
 	int c = 0;
+	/* Arr of structs containing a string and a function pointers */
 	t_blist arr[] = {
 		{"exit", shell_exit},
 		{"env", shell_env},
 		{NULL, NULL}
 	};
-
 	if (input[0] == NULL)
 		return (-1);
 	if (_strcmp(input[0], "exit"))
@@ -57,11 +59,13 @@ int runbuiltins(char **input, char **env, char *buf)
  */
 int runprograms(char **input, char **env)
 {
+	/* initializing the usual */
 	char **path, *adress, *getpath;
 	int i, fd;
 
 	if (env == NULL)
 		return (-1);
+	/* checks if the first input is a valid program */
 	fd = access(input[0], F_OK);
 	if (fd == 0)
 	{
@@ -73,6 +77,7 @@ int runprograms(char **input, char **env)
 	if (getpath == NULL)
 		return (-1);
 	path = str_to_double(getpath, ":");
+	/* Pretty similar to runbuiltin function */
 	for (i = 0; path[i] != NULL; i++)
 	{
 		adress = catcmd(path[i], input[0]);
@@ -87,6 +92,7 @@ int runprograms(char **input, char **env)
 		}
 		free(adress);
 	}
+	/* Always freeing stuff afte use */
 	free(getpath);
 	free_double(path);
 	return (-1);
@@ -131,13 +137,14 @@ int main(int ac, char *av[], char **env)
 	char *buffer = NULL, *buf, **input;
 	int status = 1, cmd = 0, error = 0, line, count = 0;
 	(void)ac;
-
+	/* sigint() is triggered when the processes are interupted */
 	signal(SIGINT, sigint);
 	while (status)
 	{
 		count++;
 		buffer = NULL;
 		bufsize = 0;
+		/* This is how Non-Interactive Mode works */
 		if (isatty(STDIN_FILENO) != 0)
 			write(STDOUT_FILENO, "$ ", 2);
 		line = getline(&buffer, &bufsize, stdin);
@@ -147,6 +154,7 @@ int main(int ac, char *av[], char **env)
 			free(buffer);
 			continue;
 		}
+		/* Checks if there are empty spaces before command */
 		if (checkempty(buffer))
 		{
 			free(buffer);
