@@ -7,6 +7,10 @@
  */
 int shell_exit(char **env)
 {
+	/*
+	 * Now after analyzing this code, this could have
+	 * been implemented without this function pointer
+	 */
 	(void)env;
 	exit(EXIT_SUCCESS);
 }
